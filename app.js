@@ -86,12 +86,12 @@ app.use(function(req, res, next) {
   res.locals.flashMessages = req.flash();
   next();
 });
-
+js:87
 // Route
 app.use('/', index);
 app.use('/users', users);
 //app.use('/questions', questions);
-//require('./routes/auth')(app, passport);
+require('./routes/auth')(app, passport);
 //app.use('/api', require('./routes/api'));
 
 // catch 404 and forward to error handler
