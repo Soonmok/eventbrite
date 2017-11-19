@@ -1,0 +1,86 @@
+//colors
+$color_tuatara_approx: #323538;
+$white: white;
+$silver_chalice: #acacac;
+
+.footer-container {
+	width: 100%;
+	height: auto;
+}
+.footer-links {
+	font-size: 1.3em;
+	font-weight: lighter;
+	color: $white;
+	line-height: 100px;
+	margin-bottom: -20px;
+}
+.footer-text {
+	color: $white;
+	font-weight: lighter;
+	line-height: 20px;
+}
+hr {
+	display: block;
+	border-style: inset;
+	margin: 0.7em auto 0.7em auto;
+	border-width: 1px;
+	color: $silver_chalice;
+}
+@media(max-width: 575px) {
+	.img-responsive {
+		display: none;
+	}
+	#card-content {
+		display: none;
+	}
+	.post-heading {
+		font-size: 20px;
+	}
+	.hide-lg {
+		display: none;
+	}
+	.category {
+		margin-bottom: 1em;
+	}
+}
+@media(min-width: 426px) and(max-width: 960px) {
+	.row {
+		height: auto;
+	}
+	.card-columns {
+		//Instead of the line below you could use @include column-count($count)
+		column-count: 2;
+	}
+	#inlineFormInputLocation {
+		display: none;
+	}
+	#selectFormDate {
+		display: none;
+	}
+}
+@media(min-width: 960px) {
+	.category {
+		height: 300px;
+	}
+}
+@media(max-width: 768px) {
+	#footer-long-text {
+		display: none;
+	}
+	#countries {
+		display: none;
+	}
+}
+@media(max-width: 1024px) {
+	#selectFormDate {
+		display: none;
+	}
+}
+@media(max-width: 1440px) {
+	#inlineFormInputLocation {
+		display: none;
+	}
+}
+footer > div {
+	background-color: $color_tuatara_approx;
+}

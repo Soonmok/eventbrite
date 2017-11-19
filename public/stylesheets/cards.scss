@@ -1,0 +1,143 @@
+//colors
+$color_lochmara_approx: #087bb9;
+$black: #000000;
+$white_90: rgba(255, 255, 255, 0.9);
+$white:  white;
+$color_orange_approx: #f86820;
+$color_rust_approx: #ac3b0f;
+$color_dove_gray_approx: #727272;
+$color_jungle_green_approx: #1eaa97;
+$color_firefly_approx: #112c2b;
+$color_moody_blue_approx: #6d6de6;
+$color_azure_approx: #3b5998;
+$color_picton_blue_approx: #55acee;
+$color_prussian_blue_approx: #04335a;
+
+#create-event {
+	color: $color_lochmara_approx;
+	font-weight: bold;
+	&:hover {
+		color: $black;
+	}
+}
+.img-responsive {
+	width: 100%;
+	height: 30em;
+}
+.col-centered {
+	float: none;
+	margin: 0 auto;
+}
+.text-card {
+	background: linear-gradient($white_90 0, $white 25%);
+	margin-top: -140px;
+	position: relative;
+	height: 250px;
+}
+.text-card-heading {
+	margin-top: 20px;
+	font-size: 45px;
+	line-height: 60px;
+	font-weight: 300;
+	color: $color_orange_approx;
+}
+.searchForm {
+	margin-left: 0;
+	margin-right: 0;
+}
+.btn-search {
+	background-color: $color_orange_approx;
+	color: $white;
+	width: 100px;
+	height: auto;
+}
+.post-heading {
+	text-align: center;
+	color: $color_dove_gray_approx;
+	line-height: 150px;
+	font-size: 2em;
+	font-weight: normal;
+}
+#text-color-blue {
+	color: $color_jungle_green_approx;
+	&:hover {
+		color: $color_firefly_approx;
+		text-decoration: underline;
+	}
+}
+.event-info {
+	font-weight: bold;
+}
+.specific-info {
+	line-height: 1em;
+}
+.hash-tag {
+	line-height: 5px;
+	&:hover {
+		color: $color_lochmara_approx;
+		text-decoration: underline;
+	}
+}
+.fa {
+	padding: 20px;
+	font-size: 30px;
+	width: 50px;
+	padding: 5px;
+	font-size: 10px;
+	width: 20px;
+	text-align: center;
+	text-decoration: none;
+	&:hover {
+		opacity: 0.7;
+	}
+}
+.fa-facebook {
+	background: $color_azure_approx;
+	color: $white;
+}
+.fa-twitter {
+	background: $color_picton_blue_approx;
+	color: $white;
+}
+#see-more-btn {
+	margin-bottom: 50px;
+	&:hover {
+		background-color: $color_prussian_blue_approx;
+	}
+}
+#browse-category-text {
+	color: $color_dove_gray_approx;
+	font-weight: normal;
+}
+.categories-container {
+	margin-top: 50px;
+}
+.category {
+	height: auto;
+	margin-bottom: 2rem;
+}
+.thumbnail {
+	position: relative;
+}
+.caption {
+	position: absolute;
+	top: 45%;
+	left: 0;
+	width: 100%;
+}
+.caption-text {
+	font-size: 2em;
+	font-weight: bold;
+	color: $white;
+}
+.card-image {
+	width: 100%;
+	height: 100%;
+}
+form > button:hover {
+	background-color: $color_rust_approx;
+}
+li > a:hover {
+	color: $color_moody_blue_approx;
+	text-decoration: underline;
+}

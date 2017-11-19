@@ -1,0 +1,18 @@
+nav.navbar.navbar-expand-lg.navbar-light
+      a#navbar-brand.navbar-brand(href='/') Eventbrite
+      button.navbar-toggler.ml-auto(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo01', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse
+        ul.navbar-nav.ml-auto.mt-2.mt-lg-0
+          li.nav-item.active
+            a.nav-link.nav-link-block(href='/index')
+              | BROWSE EVENT 
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link.nav-link-block(href='#') LEARN MORE
+          li.nav-item
+            a.nav-link.nav-link-block(href='#') HELP
+          li.nav-item
+            a.nav-link.nav-link-block(href='/signin') SIGN IN
+          li.nav-item
+            a#create-event.nav-link.nav-link-textColor(href='/events/new') CREATE EVENT
