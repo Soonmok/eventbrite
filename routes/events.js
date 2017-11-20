@@ -44,8 +44,8 @@ router.get('/new', needAuth, (req, res, next) => {
 });
 
 router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
-  const events = await events.findById(req.params.id);
-  res.render('events/index', {events: events});
+  const events = await Events.findById(req.params.id);
+  res.render('events/index', {event: event});
 }));
 
 router.get('/:id', catchErrors(async (req, res, next) => {
@@ -55,11 +55,11 @@ router.get('/:id', catchErrors(async (req, res, next) => {
 
   await events.save();
   //res.render('events/index', {events: events, answers: answers});
-  res.render('events/index', {events: events});
+  res.render('events/show', {events: events});
 }));
 
 router.put('/:id', catchErrors(async (req, res, next) => {
-  const events = await events.findById(req.params.id);
+  const events = await Events.findById(req.params.id);
 
   if (!events) {
     req.flash('danger', 'Not exist events');
@@ -101,7 +101,7 @@ router.post('/', needAuth, catchErrors(async (req, res, next) => {
 
 router.post('/:id/answers', needAuth, catchErrors(async (req, res, next) => {
   const user = req.user;
-  const events = await events.findById(req.params.id);
+  const events = await Events.findById(req.params.id);
 
   if (!events) {
     req.flash('danger', 'Not exist events');

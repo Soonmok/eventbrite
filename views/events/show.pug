@@ -2,21 +2,21 @@ extends ../layout
 
 block content
   .container
-    h1.main-title= event.title
+    h1.main-title= events.title
 
     .event.show
-      include _event
+      include _events
 
       .buttons
         if currentUser
-          button.btn.btn-primary.event-like-btn(data-id=event.id) 
+          button.btn.btn-primary.event-like-btn(data-id=events.id) 
             span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
             span #[i.fa.fa-thumbs-up] Like
-          if event.author && event.author.id == currentUser.id
+          if events.author && events.author.id == currentUser.id
             | 
-            a.btn.btn-outline-secondary(href=`/events/${event.id}/edit`) Edit
+            a.btn.btn-outline-secondary(href=`/events/${events.id}/edit`) Edit
             | 
-            a.btn.btn-outline-danger.need-confirm-btn(href=`/events/${event.id}?_method=delete`) Delete
+            a.btn.btn-outline-danger.need-confirm-btn(href=`/events/${events.id}?_method=delete`) Delete
       
 
   script(src='/javascripts/event_client.js')

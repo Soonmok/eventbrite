@@ -1,14 +1,13 @@
-.content= event.content
+.content= events.content
 
 .row
   .col-sm
     .numbers.
-      #[span.number.num-likes= event.numLikes] likes,
-      #[span.number.num-answers= event.numAnswers] answers,
-      #[span.number.num-reads= event.numReads] reads
+        #[span.number.num-likes= events.numParticipation] participations,
+        #[span.number.num-reads= events.numReads] reads
   .col-sm
     .author
-      | asked on #{moment(event.createdAt).format('YYYY-MM-DD')}
-      if event.author
+      | asked on #{moment(events.createdAt).format('YYYY-MM-DD')}
+      if events.author
         | 
-        | by #[a(href=`/users/${event.author.id}`)= event.author.name] 
+        | by #[a(href=`/users/${events.author.id}`)= events.author.name] 

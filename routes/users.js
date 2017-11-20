@@ -40,6 +40,11 @@ function validateForm(form, options) {
 
   return null;
 }
+/* GET MainPage. */
+router.get('../:id', needAuth, catchErrors(async (req, res, next) => {
+  const users = await User.find({});
+  res.render('/', {users: users});
+}));
 
 /* GET users listing. */
 router.get('/', needAuth, catchErrors(async (req, res, next) => {
