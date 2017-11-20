@@ -19,11 +19,11 @@ block content
             td= user.email
             td= moment(user.createdAt).format('YYYY-MM-DD HH:mm:ss')
             td
-              if currentUser.name === user._id || currentUser.isRoot
+              if currentUser.name == user.name || currentUser.isRoot
                 a.btn.btn-sm.btn-outline-secondary(href=`/users/${user._id}/edit`) 
                     | #[i.fa.fa-pencil] Edit
                 | 
-              if currentUser.name === user._id || currentUser.isRoot
+              if currentUser.name == user.name || currentUser.isRoot
                 a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/${user._id}?_method=DELETE`)
                     | #[i.fa.fa-trash] Delete
     .div

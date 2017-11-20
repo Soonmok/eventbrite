@@ -21,8 +21,8 @@ block content
     p
       a.btn.btn-outline-secondary(href='/users/') List
       | 
-      if currentUser.isRoot || currentUser.name === user._id
+      if currentUser.isRoot || currentUser.name == user.name
         a.btn.btn-outline-primary(href=`/users/${user._id}/edit`) Edit
         |
-      if currentUser.isRoot || currentUser.name === user._id
+      if currentUser.isRoot || currentUser.name == user.name
         a.btn.btn-outline-danger.need-confirm-btn(href=`/users/${user._id}?_method=DELETE`) Delete
