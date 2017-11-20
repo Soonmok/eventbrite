@@ -13,7 +13,7 @@ var passport = require('passport');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-//var questions = require('./routes/questions');
+var events = require('./routes/events');
 
 var passportConfig = require('./lib/passport-config');
 
@@ -90,7 +90,7 @@ js:87
 // Route
 app.use('/', index);
 app.use('/users', users);
-//app.use('/questions', questions);
+app.use('/events', events);
 require('./routes/auth')(app, passport);
 //app.use('/api', require('./routes/api'));
 

@@ -1,0 +1,92 @@
+
+block content
+    .container
+        h2 Create Event
+        h1.main-title Event Detail
+        form(action="/events", method="POST")
+
+            .form-group
+                label(for="title") EVENT TITLE
+                input.form-control(type="String", name="title", placeholder="Give it a short distinct name")
+
+            .form-group
+                label(for="location") LOCATION
+                input.form-control(type="String", name="location", placeholder="Search for a venue or address")
+
+            .form-group
+                label(for="content") CONTENT
+                textarea.form-control(name="content", rows="5", placeholder="Describe your event")
+
+                select#selectFormDate.custom-select.form-control-lg(type="String", name="startTime")
+                            option(selected='') 07:00pm
+                            option(value='07:30pm') 07:30pm
+                            option(value='08:00pm') 08:00pm
+                            option(value='08:30pm') 08:30pm
+                            option(value='09:00pm') 09:00pm
+                            option(value='09:30pm') 09:30pm
+                            option(value='10:00pm') 10:00pm
+
+                select#selectFormDate.custom-select.form-control-lg(type="String", name="finishTime")
+                            option(selected='') 07:00pm
+                            option(value='07:30pm') 07:30pm
+                            option(value='08:00pm') 08:00pm
+                            option(value='08:30pm') 08:30pm
+                            option(value='09:00pm') 09:00pm
+                            option(value='09:30pm') 09:30pm
+                            option(value='10:00pm') 10:00pm
+
+            label.custom-fileextends layout
+
+            .container
+                h1.main-title Create Tickets
+                .form-group
+                    label FREE/PAID
+                    select#selectFormDate.custom-select.form-control-lg(type="String", name="free")
+                                option(selected='') TICKET
+                                option(value='FREE') FREE
+                                option(value='PAID') PAID
+                        
+            .container
+                h1.main-title Additional Settings
+                .form-group
+                    label EVENT TYPE
+                    select.custom-select(type="String", name="eventType")
+                        option(selected='') Select the type of event
+                        option(value='Appearance or Signing') Appearance or Signing
+                        option(value='Attraction') Attraction
+                        option(value='Camp, Trip, or Retreat') Camp, Trip, or Retreat
+                        option(value='Class, Training, or Workshop') Class, Training, or Workshop
+                        option(value='Concert or Performance') Concert or Performance
+                        option(value='Conference') Conference
+                        option(value='Convention') Convention
+                        option(value='Dinner or Gala') Dinner or Gala
+                        option(value='Festival or Fair') Festival or Fair
+                        option(value='Game or Competition') Game or Competition
+                        option(value='Meeting or Networking Event') Meeting or Networking Event
+                        option(value='Other') Otherinput.btn.btn-info(type='submit', value='Submit')
+                        option(value='Party or Social Gathering') Party or Social Gathering
+                        option(value='Race or Endurance Event') Race or Endurance Event
+                        option(value='Rally') Rally
+                        option(value='Screening') Screening
+                        option(value='Seminar or Talk') Seminar or Talk
+                        option(value='Tour') Tour
+                        option(value='Tournament') Tournament
+                .form-group
+                    label EVENT TOPIC
+                    select.custom-select(type="String", name="eventTopic")
+                        option(selected='') Select a topic
+                        option(value='Auto, Boat &amp; Air') Auto, Boat &amp; Air
+                        option(value='Business &amp; Professional') Business &amp; Professional
+                        option(value='Charity &amp; Causes') Charity &amp; Causes
+                        option(value='Community &amp; Culture') Community &amp; Culture
+                        option(value='Family &amp; Education') Family &amp; Education
+                        option(value='Fashion &amp; Beauty') Fashion &amp; Beauty
+                        option(value='Film, Media &amp; Entertainment') Film, Media &amp; Entertainment
+                        option(value='Food &amp; Drink') Food &amp; Drink
+                        option(value='Government &amp; Politics') Government &amp; Politics.container
+                    h1.main-title FINISH
+                input.btn.btn-info(type='submit', value='Submit')
+
+
+
+

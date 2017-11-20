@@ -1,0 +1,45 @@
+.show {
+    .content {
+      white-space: pre-wrap;
+    }
+    .buttons {
+      margin: 1em 0;
+    }
+  
+    .answer {
+      position: relative;
+      .participation-badge {
+        text-align: center;
+        padding: 0.5em;
+        position: absolute;
+        .button {
+          font-size: 0.8em;
+        }
+      }
+      .card-body{
+        padding-left: 4em;
+      }
+      margin-bottom: 1em;
+      .content {
+        margin-bottom: 0.5em;
+        color: #888;
+      }
+    }
+  }
+  
+  .event-participation-btn, .answer-participation-btn {
+    .for-loading {display: none;}
+    cursor: pointer; 
+  
+    &.loading {
+      & > span {display: none;}
+      .for-loading {display: inline-block;}
+      filter: opacity(30%);
+      cursor: wait;
+    }
+  
+    &.disabled {
+      color: #bbb;
+      cursor: default;
+    }
+  }
