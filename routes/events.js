@@ -16,6 +16,7 @@ function needAuth(req, res, next) {
   }
 }
 
+
 /* GET eventss listing. */
 router.get('/', catchErrors(async (req, res, next) => {
   console.log("please");

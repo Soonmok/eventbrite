@@ -9,9 +9,10 @@ block content
 
       .buttons
         if currentUser
-          button.btn.btn-primary.event-like-btn(data-id=events.id) 
+          button.btn.btn-primary.event-participation-btn(data-id=events.id) 
             span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
-            span #[i.fa.fa-thumbs-up] Like
+            span.btn #[i.fa.fa-thumbs-up] participation
+            
           if events.author && events.author.id == currentUser.id
             | 
             a.btn.btn-outline-secondary(href=`/events/${events.id}/edit`) Edit
@@ -19,4 +20,4 @@ block content
             a.btn.btn-outline-danger.need-confirm-btn(href=`/events/${events.id}?_method=delete`) Delete
       
 
-  script(src='/javascripts/event_client.js')
+  script(src='/javascripts/events_client.js')

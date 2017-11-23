@@ -27,7 +27,6 @@ block content
                 a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/${user._id}?_method=DELETE`)
                     | #[i.fa.fa-trash] Delete
     .div
+      if currentUser.isRoot
         a.btn.btn-primary(href='/users/new') #[i.fa.fa-plus] Register a new user
-    .div
-        a.btn.btn-primary(href='/users/new') #[i.fa.fa-plus] logout
 

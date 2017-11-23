@@ -119,7 +119,7 @@ router.post('/', catchErrors(async (req, res, next) => {
   user.password = await user.generateHash(req.body.password);
   await user.save();
   req.flash('success', 'Registered successfully. Please sign in.');
-  res.redirect('/');
+  res.redirect('../signin');
 }));
 
 module.exports = router;

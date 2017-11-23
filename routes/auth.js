@@ -44,5 +44,11 @@ module.exports = (app, passport) => {
       req.flash('success', 'Successfully signed out');
       res.redirect('/');
     });
+
+    app.get('/edit', (req, res) => {
+      req.logout();
+      req.flash('success', 'Successfully signed out');
+      res.redirect('/');
+    });
   };
   

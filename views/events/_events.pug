@@ -3,11 +3,17 @@
 .row
   .col-sm
     .numbers.
-        #[span.number.num-likes= events.numParticipation] participations,
+        #[span.number.num-participation= events.numParticipation] participations,
         #[span.number.num-reads= events.numReads] reads
   .col-sm
     .author
       | asked on #{moment(events.createdAt).format('YYYY-MM-DD')}
       if events.author
         | 
-        | by #[a(href=`/users/${events.author.id}`)= events.author.name] 
+        | by #[a(href=`/users/${events.author.id}`)= events.author.name]
+      if currentUser 
+        if events.auther == currentUser.name || currentUser.isRoot
+          a.btn.btn-sm.btn-outline-secondary(href=`/events/${currentUser._id}/edit`) 
+                      | #[i.fa.fa-pencil] Edit
+          a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/events/${currentUser._id}?_method=DELETE`)
+                      | #[i.fa.fa-trash] Delete

@@ -33,10 +33,14 @@ app.locals.querystring = require('querystring');
 //=======================================================
 // mongodb connect
 //=======================================================
+if (process.env.NODE_ENV !== 'production') {
+ require('dotenv').load();
+}
 mongoose.Promise = global.Promise; // ES6 Native Promise를 mongoose에서 사용한다.
 //const connStr = 'mongodb://localhost/mjdb3';
 // 아래는 mLab을 사용하는 경우의 예: 본인의 접속 String으로 바꾸세요.
-const connStr = "mongodb://soonmok:123123@ds011439.mlab.com:11439/moksdatabase";
+//const connStr = "mongodb://soonmok:123123@ds011439.mlab.com:11439/moksdatabase";
+const connStr = process.env.MOK_DB;
 mongoose.connect(connStr, {useMongoClient: true });
 mongoose.connection.on('error', console.error);
 
@@ -92,7 +96,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/events', events);
 require('./routes/auth')(app, passport);
-//app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

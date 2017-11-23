@@ -1,3 +1,6 @@
+.fa-kakaotalk {
+  background: url("../images/kakao_account_login_btn_medium_narrow.png"); }
+
 .navbar-light .navbar-brand {
   color: #f6682F;
   font-weight: bolder;
@@ -194,6 +197,9 @@ hr {
 
 footer > div {
   background-color: #323538; }
+
+.fa-kakaotalk {
+  background: url("../images/kakao_account_login_btn_medium_narrow.png"); }
 
 .form-signin {
   width: 300px;
