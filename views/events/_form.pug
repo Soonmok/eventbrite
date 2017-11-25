@@ -35,17 +35,21 @@ block content
                             option(value='09:30pm') 09:30pm
                             option(value='10:00pm') 10:00pm
 
-            label.custom-fileextends layout
 
             .container
+            
                 h1.main-title Create Tickets
                 .form-group
                     label FREE/PAID
-                    select#selectFormDate.custom-select.form-control-lg(type="String", name="free")
+                    select#selectFormPrice.custom-select.form-control-lg(type="String", name="free", onchange="getSelectedValue();")
                                 option(selected='') TICKET
                                 option(value='FREE') FREE
                                 option(value='PAID') PAID
-                        
+
+                
+                #hidden.form-group
+                    label(for="ticketPrice") Ticket Price
+                    input.form-control(type="Number", name="ticketPrice", placeholder="put the price")
             .container
                 h1.main-title Additional Settings
                 .form-group
@@ -86,7 +90,7 @@ block content
                         option(value='Government &amp; Politics') Government &amp; Politics.container
                     h1.main-title FINISH
                 input.btn.btn-info(type='submit', value='Submit')
-
+    
 
 
 

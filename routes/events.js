@@ -17,7 +17,7 @@ function needAuth(req, res, next) {
 }
 
 
-/* GET eventss listing. */
+/* GET events listing. */
 router.get('/', catchErrors(async (req, res, next) => {
   console.log("please");
   const page = parseInt(req.query.page) || 1;
@@ -93,7 +93,8 @@ router.post('/', needAuth, catchErrors(async (req, res, next) => {
     free: req.body.free,
     eventType: req.body.eventType,
     eventTopic: req.body.eventTopic,
-    eventContent: req.body.content
+    eventContent: req.body.content,
+    ticketPrice: req.body.ticketPrice,
   });
   await events.save();
   req.flash('success', 'Successfully posted');
