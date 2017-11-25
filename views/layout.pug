@@ -20,7 +20,7 @@ html(lang='en')
     script(src='/javascripts/application.js')
     script(src='/javascripts/hiddenForm.js')
     //- socket io
-    //script(src='/socket.io/socket.io.js') 
+    script(src='/socket.io/socket.io.js') 
     title Document
   body
     block top-nav
@@ -35,6 +35,29 @@ html(lang='en')
             button.close(type='button', data-dismiss='alert', aria-label='close')
               span(aria-hidden='true') &times;
     block content
+
+
+    script.
+
+      // WebSocket을 만들고 접속
+      var socket = io();
+
+      socket.on('welcome', function() {
+        // welcome 메시지를 받으면 join을 보낸다.
+        console.log('received welcome');
+        socket.emit('join');
+      });
+
+      socket.on('reviewed', function(data) {
+        // reviewed를 받으면 링크를 notifier로 출력한다.
+        var title = $('<div></div>').text(data.question.title).html();
+        $.notify({
+          icon: 'fa fa-bell',
+          title: 'You hace a new review.',
+          url: data.url,
+          message: title
+        });
+      });
 
 
 

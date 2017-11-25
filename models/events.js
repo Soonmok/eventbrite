@@ -15,7 +15,8 @@ var schema = new Schema({
   numParticipation: {type: Number, default: 0},
   numReads: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
-  ticketPrice: {type: Number, default: 0}
+  ticketPrice: {type: Number, default: 0},
+  numReviews: {type: Number, default: 0},
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

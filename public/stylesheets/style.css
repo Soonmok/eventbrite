@@ -233,33 +233,33 @@ footer > div {
 .show .buttons {
   margin: 1em 0; }
 
-.show .answer {
+.show .review {
   position: relative;
   margin-bottom: 1em; }
-  .show .answer .participation-badge {
+  .show .review .participation-badge {
     text-align: center;
     padding: 0.5em;
     position: absolute; }
-    .show .answer .participation-badge .button {
+    .show .review .participation-badge .button {
       font-size: 0.8em; }
-  .show .answer .card-body {
+  .show .review .card-body {
     padding-left: 4em; }
-  .show .answer .content {
+  .show .review .content {
     margin-bottom: 0.5em;
     color: #888; }
 
-.event-participation-btn, .answer-participation-btn {
+.event-participation-btn, .review-participation-btn {
   cursor: pointer; }
-  .event-participation-btn .for-loading, .answer-participation-btn .for-loading {
+  .event-participation-btn .for-loading, .review-participation-btn .for-loading {
     display: none; }
-  .event-participation-btn.loading, .answer-participation-btn.loading {
+  .event-participation-btn.loading, .review-participation-btn.loading {
     filter: opacity(30%);
     cursor: wait; }
-    .event-participation-btn.loading > span, .answer-participation-btn.loading > span {
+    .event-participation-btn.loading > span, .review-participation-btn.loading > span {
       display: none; }
-    .event-participation-btn.loading .for-loading, .answer-participation-btn.loading .for-loading {
+    .event-participation-btn.loading .for-loading, .review-participation-btn.loading .for-loading {
       display: inline-block; }
-  .event-participation-btn.disabled, .answer-participation-btn.disabled {
+  .event-participation-btn.disabled, .review-participation-btn.disabled {
     color: #bbb;
     cursor: default; }
 

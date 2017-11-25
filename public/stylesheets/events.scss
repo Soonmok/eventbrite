@@ -6,7 +6,7 @@
       margin: 1em 0;
     }
   
-    .answer {
+    .review {
       position: relative;
       .participation-badge {
         text-align: center;
@@ -27,7 +27,7 @@
     }
   }
   
-  .event-participation-btn, .answer-participation-btn {
+  .event-participation-btn, .review-participation-btn {
     .for-loading {display: none;}
     cursor: pointer; 
   

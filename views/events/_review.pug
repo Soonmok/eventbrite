@@ -1,0 +1,20 @@
+.review.card(id= review.id)
+  .numbers.like-badge
+    .number
+      span.number.num-likes= review.numLikes
+    .button
+      a.like.review-like-btn(href='#', data-id=review.id)
+        i.fa.fa-thumbs-up
+        | 
+        | Like
+
+  .card-body
+    .content= review.content
+  .row.card-body
+    .col-sm
+    .col-sm.text-right
+      .author
+        | reviewed on #{moment(review.createdAt).format('YYYY-MM-DD')}
+        if review.author
+          | 
+          | by #[a(href=`/users/${review.author.id}`)= review.author.name]
