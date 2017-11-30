@@ -18,19 +18,20 @@ block content
             a.btn.btn-outline-secondary(href=`/events/${events.id}/edit`) Edit
             | 
             a.btn.btn-outline-danger.need-confirm-btn(href=`/events/${events.id}?_method=delete`) Delete
-    if event.numReviews > 0
-      hr
-      h3 #{event.numReviews} review(s)
-      .reviews.show
-        each review in reviews
-          include _review
+    
+      if events.numReviews > 0
+        hr
+        h3 #{events.numReviews} review(s)
+        .reviews.show
+          each review in reviews
+            include _review
 
-    if currentUser
-      form(action=`/events/${event.id}/reviews`, method='POST')
-        .form-group
-          label(for='review') Your review
-          textarea.form-control(name="content", rows="5")
-        button.btn.btn-primary(type="submit") Post Your review
-      
+      if currentUser
+        form(action=`/events/${events.id}/reviews`, method='POST')
+          .form-group
+            label(for='review') Your review
+            textarea.form-control(name="content", rows="5")
+          button.btn.btn-primary(type="submit") Post Your review
+        
 
   script(src='/javascripts/events_client.js')

@@ -21,22 +21,30 @@ router.post('/events/:id/participation', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
   console.log(req.params.id);
   console.log("im in post");
-  console.log(event.title);
+
   if (!event) {
     return next({status: 404, msg: 'Not exist event'});
   }
   var participationLog = await ParticipationLog.findOne({author: req.user._id, event: event._id});
   if (!participationLog) {
-    console.log("im increasing number");
-    console.log("num == ")
-    console.log(event.numParticipation);
-    event.numParticipation++;
+    if (event.numParticipation < event.numLimit) {
+      event.numParticipation++;
+      console.log("increment");
+    }
+    else {
+      req.flash('danger', 'Please signin first.');
+      res.redirect('/events/:id');
+      console.log(event.title);
+    }
     console.log("num == ")
     console.log(event.numParticipation);
     await Promise.all([
       event.save(),
       ParticipationLog.create({author: req.user._id, event: event._id})
     ]);
+  }
+  else {
+    console.log("log already exist");
   }
   return res.json(event);
 }));

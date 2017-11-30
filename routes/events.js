@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Events = require('../models/events');
 const Review = require('../models/review'); 
+const ParticipationLog = require('../models/review');
 const catchErrors = require('../lib/async-error');
 
 module.exports = io => {
@@ -47,12 +48,13 @@ module.exports = io => {
 
   router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id);
-    res.render('events/index', {event: event});
+    res.render('events/edit', {events: events});
   }));
 
   router.get('/:id', catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id).populate('author');
     const reviews = await Review.find({events: events.id}).populate('author');
+    const logs = await ParticipationLog.find({events: events.id}).populate('author'); 
     events.numReads++;    // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
 
     await events.save();
@@ -76,9 +78,9 @@ module.exports = io => {
   }));
 
   router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
-    await events.findOneAndRemove({_id: req.params.id});
+    await Events.findOneAndRemove({_id: req.params.id});
     req.flash('success', 'Successfully deleted');
-    res.redirect('/events/index');
+    res.redirect('/');
   }));
 
   router.post('/', needAuth, catchErrors(async (req, res, next) => {
@@ -95,6 +97,7 @@ module.exports = io => {
       eventTopic: req.body.eventTopic,
       eventContent: req.body.content,
       ticketPrice: req.body.ticketPrice,
+      numLimit: req.body.numLimit,
     });
     await events.save();
     req.flash('success', 'Successfully posted');
@@ -103,7 +106,7 @@ module.exports = io => {
 
   router.post('/:id/reviews', needAuth, catchErrors(async (req, res, next) => {
     const user = req.user;
-    const events = await Event.findById(req.params.id);
+    const events = await Events.findById(req.params.id);
 
     if (!events) {
       req.flash('danger', 'Not exist events');
@@ -118,11 +121,10 @@ module.exports = io => {
     await review.save();
     events.numReviews++;
     await events.save();
-    const url = `/events/${event._id}#${answer._id}`;
-    io.to(event.author.toString())
-      .emit('answered', {url: url, event: event});
-    console.log('SOCKET EMIT', event.author.toString(), 'answered', {url: url, event: question})
-    
+    const url = `/events/${events._id}#${review._id}`;
+    io.to(events.author.toString())
+      .emit('reviewed', {url: url, events: events});
+    console.log('SOCKET EMIT', events.author.toString(), 'reviewed', {url: url, events: events})
     req.flash('success', 'Successfully reviewed');
     res.redirect(`/events/${req.params.id}`);
   }));

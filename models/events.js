@@ -13,6 +13,7 @@ var schema = new Schema({
   eventType: {type: String, trim: true, required: true},
   eventTopic: {type: String, trim: true, required: true},
   numParticipation: {type: Number, default: 0},
+  numLimit: {type: Number, default: 10},
   numReads: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
   ticketPrice: {type: Number, default: 0},

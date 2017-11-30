@@ -42,14 +42,17 @@ block content
                 .form-group
                     label FREE/PAID
                     select#selectFormPrice.custom-select.form-control-lg(type="String", name="free", onchange="getSelectedValue();")
-                                option(selected='') TICKET
-                                option(value='FREE') FREE
+                                option(selected='FREE') TICKET
                                 option(value='PAID') PAID
 
-                
                 #hidden.form-group
                     label(for="ticketPrice") Ticket Price
                     input.form-control(type="Number", name="ticketPrice", placeholder="put the price")
+
+                .form-group
+                label(for="LimitParticipation") The Number Of Participants
+                input.form-control(type="Number", name="numLimit", placeholder="set the Limit of the number of Participants")
+
             .container
                 h1.main-title Additional Settings
                 .form-group
