@@ -9,3 +9,8 @@ function getSelectedValue() {
         $hiddenForm.hide();
     }
 }
+
+function showHiddens() {
+    var $hiddenForm = $(document.getElementById("hidden"));
+    $hiddenForm.show();
+}

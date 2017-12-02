@@ -30,20 +30,18 @@ router.post('/events/:id/participation', catchErrors(async (req, res, next) => {
     if (event.numParticipation < event.numLimit) {
       event.numParticipation++;
       console.log("increment");
+      await Promise.all([
+        event.save(),
+        ParticipationLog.create({author: req.user._id, event: event._id})
+      ]);
     }
     else {
-      req.flash('danger', 'Please signin first.');
-      res.redirect('/events/:id');
-      console.log(event.title);
+      console.log("i can't increase participation num");
     }
-    console.log("num == ")
-    console.log(event.numParticipation);
-    await Promise.all([
-      event.save(),
-      ParticipationLog.create({author: req.user._id, event: event._id})
-    ]);
   }
   else {
+    console.log("flash");
+    req.flash('danger', 'already enrolled');
     console.log("log already exist");
   }
   return res.json(event);

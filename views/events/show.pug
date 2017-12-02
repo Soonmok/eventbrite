@@ -25,6 +25,7 @@ block content
         .reviews.show
           each review in reviews
             include _review
+            
 
       if currentUser
         form(action=`/events/${events.id}/reviews`, method='POST')

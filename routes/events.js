@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Events = require('../models/events');
-const Review = require('../models/review'); 
+const Review = require('../models/review');
+const Poll = require('../models/poll');
 const ParticipationLog = require('../models/review');
 const catchErrors = require('../lib/async-error');
 
@@ -21,17 +22,41 @@ module.exports = io => {
 
   /* GET events listing. */
   router.get('/', catchErrors(async (req, res, next) => {
-    console.log("please");
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
     var query = {};
     const term = req.query.term;
+    const setting = req.query.setting;
     if (term) {
-      query = {$or: [
-        {title: {'$regex': term, '$options': 'i'}},
-        {content: {'$regex': term, '$options': 'i'}}
-      ]};
+      console.log(term);
+      console.log(setting);
+      switch (setting) {
+        case 'Keyword':
+          console.log("im in Keyword");
+          query = {$or: [
+            {title: {'$regex': term, '$options': 'i'}},
+            {content: {'$regex': term, '$options': 'i'}}
+          ]};
+          break;
+
+        case 'Location':
+          console.log("im in Location");
+          query = {$or: [
+            {location: {'$regex': term, '$options': 'i'}}
+          ]};
+          break;
+
+        case 'Type':
+          console.log("im in Type");
+          query = {$or: [
+            {eventType: {'$regex': term, '$options': 'i'}}
+          ]};
+          break;
+      
+        default:
+          break;
+      }
     }
     const events = await Events.paginate(query, {
       sort: {createdAt: -1}, 
@@ -58,7 +83,7 @@ module.exports = io => {
     events.numReads++;    // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
 
     await events.save();
-    res.render('events/show', {events: events, reviews: reviews});
+    res.render('events/show', {events: events, reviews: reviews, logs: logs});
   }));
 
   router.put('/:id', catchErrors(async (req, res, next) => {

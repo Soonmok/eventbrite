@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' },
-  events: { type: Schema.Types.ObjectId, ref: 'Event' },
-  content: {type: String, trim: true, required: true},
+  group: { type: String, ref: 'Group' },
+  reason: {type: String, trim: true, required: true},
   createdAt: {type: Date, default: Date.now}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
 });
 schema.plugin(mongoosePaginate);
-var Review = mongoose.model('Review', schema);
+var Poll = mongoose.model('Poll', schema);
 
-module.exports = Review;
+module.exports = Poll;

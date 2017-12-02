@@ -8,7 +8,7 @@ $(function() {
         method: 'POST',
         dataType: 'json',
         success: function(data) {
-            console.log("su!")
+          console.log("su!")
           $('.event .num-participations').text(data.numParticipation);
           $('.event-participation-btn').hide();
         },

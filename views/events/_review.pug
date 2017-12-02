@@ -2,11 +2,6 @@
   .numbers.like-badge
     .number
       span.number.num-likes= review.numLikes
-    .button
-      a.like.review-like-btn(href='#', data-id=review.id)
-        i.fa.fa-thumbs-up
-        | 
-        | Like
 
   .card-body
     .content= review.content
@@ -18,3 +13,17 @@
         if review.author
           | 
           | by #[a(href=`/users/${review.author.id}`)= review.author.name]
+
+
+  if events.author && events.author.id == currentUser.id
+    script.
+      function showHiddens() {
+        var $hiddenForm = $(document.getElementById("hidden"));
+        $hiddenForm.show();
+      }
+    #hidden.form-group
+      label(for='review') Your review
+      textarea.form-control(name="content", rows="5")
+    #hidden.button.btn.btn-primary(type="submit") Post
+    .button.btn.btn-primary(onclick="showHiddens();") Post Your Answer
+

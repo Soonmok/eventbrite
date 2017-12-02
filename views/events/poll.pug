@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .container
+    h2 poll
+        h1.main-title Event Detail
+        form(action="/events", method="POST")
+
+            .form-group
+                label(for="title") ORGANISATION
+                input.form-control(type="String", name="title", placeholder="Give it a short distinct name")
+
+            .form-group
+                label(for="content") REASON
+                textarea.form-control(name="content", rows="5", placeholder="Describe your event")

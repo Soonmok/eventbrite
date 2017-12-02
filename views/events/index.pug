@@ -5,6 +5,11 @@ block content
   .container
     form.form-inline.search-input-group(action='/events', method='GET')
       i.fa.fa-search
+      select.custom-select(type=String, name='setting', aria-label='Search-Setting', value=setting)
+        option(selected='Keyword') Search Setting
+        option(value='Keyword') Keyword
+        option(value='Location') Location
+        option(value='Type') Type
       input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
 
     h1.main-title 
