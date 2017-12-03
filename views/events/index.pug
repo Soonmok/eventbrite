@@ -24,7 +24,7 @@ block content
           each event in events.docs
             .event
               a.title(href=`/events/${event.id}`)= event.title
-              include _events
+              //include _events
 
         +paginate(events, '/events', query)
 

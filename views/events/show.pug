@@ -27,7 +27,7 @@ block content
             include _review
             
 
-      if currentUser
+      if currentUser && events.author.id != currentUser.id
         form(action=`/events/${events.id}/reviews`, method='POST')
           .form-group
             label(for='review') Your review

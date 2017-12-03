@@ -9,10 +9,18 @@ block content
                 label(for="title") EVENT TITLE
                 input.form-control(type="String", name="title", placeholder="Give it a short distinct name")
 
-            .form-group
+            .form-group.col-6
                 label(for="location") LOCATION
-                input.form-control(type="String", name="location", placeholder="Search for a venue or address")
+                input#myLocation.form-control(type="String", name="location", placeholder="Search for a venue or address", value=mylocation)
+                a.btn.btn-primary() search on map
+                #map(style='width:500px;height:400px;')
+                    .hAddr
+                        span.title 지도중심기준 행정동 주소정보
+                        span#centerAddr
 
+                    script.
+                        mapsInit();
+                       
             .form-group
                 label(for="content") CONTENT
                 textarea.form-control(name="content", rows="5", placeholder="Describe your event")

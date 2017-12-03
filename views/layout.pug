@@ -14,11 +14,13 @@ html(lang='en')
     
     //- Notify 라이브러리 import: http://bootstrap-notify.remabledesigns.com/ 
     script(src='/javascripts/bootstrap-notify.js')
-
+    //- Daum 지도 라이브러리 
+    script(type='text/javascript', src='//dapi.kakao.com/v2/maps/sdk.js?appkey=91270a5f0e9a136524a3c738a5cf6812&libraries=services,clusterer,drawing')
     //- this application
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/javascripts/application.js')
     script(src='/javascripts/hiddenForm.js')
+    script(src='/javascripts/maps.js')
     //- socket io
     script(src='/socket.io/socket.io.js') 
     title Document
@@ -38,8 +40,6 @@ html(lang='en')
 
 
     script.
-      $(hidden).hide();
-      $(hiddenForm).hide();
       // WebSocket을 만들고 접속
       var socket = io();
 

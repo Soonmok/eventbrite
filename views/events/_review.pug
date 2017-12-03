@@ -15,10 +15,10 @@
           | by #[a(href=`/users/${review.author.id}`)= review.author.name]
 
 
-  if events.author && events.author.id == currentUser.id
+  //if events.author && events.author.id == currentUser.id
     script.
       function showHiddens() {
-        var $hiddenForm = $(document.getElementById("hidden"));
+        var $hiddenForm = $(document);
         $hiddenForm.show();
       }
     #hidden.form-group
