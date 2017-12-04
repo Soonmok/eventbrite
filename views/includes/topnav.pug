@@ -18,6 +18,7 @@ nav.navbar.navbar-expand-lg.navbar-light
                         .dropdown-menu(aria-labelledby='navbarDropdown')
                             a.dropdown-item(href=`/users/${currentUser.id}`) Information
                             a.dropdown-item(href=`/users/${currentUser.id}/edit`) Edit
+                            a.dropdown-item(href=`/users/${currentUser.id}/favorite`) My favorites
                             a.dropdown-item(href=`/users/${currentUser.id}?_method=DELETE`) Remove Account
                             .dropdown-divider
                             a.dropdown-item.logout-btn(href='/signout') Signout

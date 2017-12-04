@@ -1,0 +1,19 @@
+extends ../layout
+include ../includes/_paginate
+block content
+  .container
+    h1.main-title 
+      | Events
+      if favorite.total > 0
+        .small Total #{favorite.total} events(s)
+
+      if favorite.total <= 0 
+        .alert.alert-info No events available yet
+      else
+        .favorite
+          each log in favorite
+            .log
+              a.title(href=`/events/${log.event._id}`)= log.event.title
+
+
+        //+paginate(events, '/events', query)

@@ -12,6 +12,10 @@ block content
           button.btn.btn-primary.event-participation-btn(data-id=events.id) 
             span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
             span.btn #[i.fa.fa-thumbs-up] participation
+          
+          button.btn.btn-primary.event-favorite-btn(data-id=events.id) 
+            span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
+            span.btn #[i.fa.fa-thumbs-up] favorite
             
           if events.author && events.author.id == currentUser.id
             | 

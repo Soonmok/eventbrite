@@ -20,6 +20,11 @@
     .numbers.
         #[span.number.num-participation= events.numParticipation] participations,
         #[span.number.num-reads= events.numReads] reads
+    .logs
+          each log in logs
+            .log
+              a.title= log.author.name
+    a="participants"
   .col-sm
     .maps
       #map(style='width:500px;height:400px;')

@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const Events = require('../models/events');
 const Review = require('../models/review');
 const Poll = require('../models/poll');
-const ParticipationLog = require('../models/review');
+const ParticipationLog = require('../models/participationLog');
+const FavoriteLog = require('../models/favoriteLog');
 const catchErrors = require('../lib/async-error');
 
 module.exports = io => {
@@ -107,13 +108,16 @@ module.exports = io => {
   router.get('/:id', catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id).populate('author');
     const reviews = await Review.find({events: events.id}).populate('author');
-    const logs = await ParticipationLog.find({events: events.id}).populate('author'); 
+    const logs = await ParticipationLog.find({event: events.id}).populate('author'); 
     events.numReads++;    // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
+    console.log("logs");
+    console.log(logs);
 
     await events.save();
     res.render('events/show', {events: events, reviews: reviews, logs: logs});
   }));
 
+  
   router.put('/:id', catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id);
 

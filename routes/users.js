@@ -2,6 +2,9 @@ const express = require('express');
 const User = require('../models/user');
 const router = express.Router();
 const catchErrors = require('../lib/async-error');
+const mongoose = require('mongoose');
+const Events = require('../models/events');
+const FavoriteLog = require('../models/favoriteLog');
 
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -99,6 +102,17 @@ router.get('/:id', catchErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   res.render('users/show', {user: user});
 }));
+
+router.get('/:id/favorite', catchErrors(async (req, res, next) => {
+  const user = await User.findOne({_id: req.params.id});
+  const favorite = await FavoriteLog.find({author: user._id}).populate('event'); 
+  //const event = await Events.find({_id: favorite.evnet})
+
+  console.log(favorite);
+
+  res.render('users/favorite', {user: user, favorite: favorite});
+}));
+
 
 router.post('/', catchErrors(async (req, res, next) => {
   var err = validateForm(req.body, {needPassword: true});
