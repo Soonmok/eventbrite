@@ -4,6 +4,7 @@ include ../includes/_paginate
 block content
   .container
     form.form-inline.search-input-group(action='/events', method='GET')
+      label(for="search") search
       i.fa.fa-search
       select.custom-select(type=String, name='setting', aria-label='Search-Setting', value=setting)
         option(selected='Keyword') Search Setting
@@ -11,6 +12,16 @@ block content
         option(value='Location') Location
         option(value='Type') Type
       input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
+    
+    form.form-inline.search-input-group(action='/events', method='GET')
+      label(for="recommendation") recommendation
+      i.fa.fa-search
+      select.custom-select(type=String, name='recommendationSetting', aria-label='recommendationSetting', value=recommendationSetting)
+        option(selected='Review') Search Setting
+        option(value='Review') Review
+        option(value='Location') Location
+        option(value='Participants') Participants
+      input.form-control.mr-sm-2(type='text', name='recommendation', placeholder='Search', aria-label='Search', value=recommendation)
 
     h1.main-title 
       | Events

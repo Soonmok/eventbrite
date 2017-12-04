@@ -28,9 +28,9 @@ module.exports = io => {
     var query = {};
     const term = req.query.term;
     const setting = req.query.setting;
+    const recommendation = req.query.recommendation;
+    const recommendationSetting = req.query.recommendationSetting;
     if (term) {
-      console.log(term);
-      console.log(setting);
       switch (setting) {
         case 'Keyword':
           console.log("im in Keyword");
@@ -51,6 +51,34 @@ module.exports = io => {
           console.log("im in Type");
           query = {$or: [
             {eventType: {'$regex': term, '$options': 'i'}}
+          ]};
+          break;
+      
+        default:
+          break;
+      }
+    }
+    if (recommendation) {
+      switch (recommendationSetting) {
+        case 'Review':
+          console.log("im in Review");
+          query = {$or: [
+            {title: {'$regex': recommendation, '$options': 'i'}},
+            {content: {'$regex': recommendation, '$options': 'i'}}
+          ]};
+          break;
+
+        case 'Location':
+          console.log("im in Location");
+          query = {$or: [
+            {location: {'$regex': recommendation, '$options': 'i'}}
+          ]};
+          break;
+
+        case 'participants':
+          console.log("im in Type");
+          query = {$or: [
+            {eventType: {'$regex': recommendation, '$options': 'i'}}
           ]};
           break;
       

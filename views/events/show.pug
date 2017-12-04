@@ -27,12 +27,13 @@ block content
             include _review
             
 
-      if currentUser && events.author.id != currentUser.id
-        form(action=`/events/${events.id}/reviews`, method='POST')
-          .form-group
-            label(for='review') Your review
-            textarea.form-control(name="content", rows="5")
-          button.btn.btn-primary(type="submit") Post Your review
+      if currentUser
+        if events.author != currentUser
+          form(action=`/events/${events.id}/reviews`, method='POST')
+            .form-group
+              label(for='review') Your review
+              textarea.form-control(name="content", rows="3")
+            button.btn.btn-primary(type="submit") Post Your review
         
 
   script(src='/javascripts/events_client.js')
