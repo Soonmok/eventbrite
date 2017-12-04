@@ -36,7 +36,11 @@ block content
           form(action=`/events/${events.id}/reviews`, method='POST')
             .form-group
               label(for='review') Your review
-              textarea.form-control(name="content", rows="3")
+              textarea.form-control(name="content", rows="5")
+                p This is some sample content.
+
+
+
             button.btn.btn-primary(type="submit") Post Your review
         
 

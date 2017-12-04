@@ -22,8 +22,14 @@ block content
                         mapsInit();
                        
             .form-group
-                label(for="content") CONTENT
-                textarea.form-control(name="content", rows="5", placeholder="Describe your event")
+                .form-group
+                    textarea#editor1(name='content', rows='10', cols='80')
+                        | describe your event
+                    script.
+                        // Replace the <textarea id="editor1"> with a CKEditor
+                        // instance, using default configuration.
+                        CKEDITOR.replace( 'editor1' );
+
 
                 select#selectFormDate.custom-select.form-control-lg(type="String", name="startTime")
                             option(selected='') 07:00pm
