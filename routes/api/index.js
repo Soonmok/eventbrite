@@ -7,6 +7,15 @@ const catchErrors = require('../../lib/async-error');
 
 const router = express.Router();
 
+function needAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    req.flash('danger', 'Please signin first.');
+    res.redirect('/signin');
+  }
+}
+
 router.use(catchErrors(async (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
@@ -23,25 +32,31 @@ router.post('/events/:id/participation', catchErrors(async (req, res, next) => {
   if (!event) {
     return next({status: 404, msg: 'Not exist event'});
   }
-  var participationLog = await ParticipationLog.findOne({author: req.user._id, event: req.event._id});
+  var participationLog = await ParticipationLog.findOne({author: req.user._id, event: event._id});
+  console.log("im in participation log");
+  console.log(participationLog);
   if (!participationLog) {
-    if (event.numParticipation < event.numLimit) {
-      event.numParticipation++;
-      await Promise.all([
-        event.save(),
-        ParticipationLog.create({author: req.user._id, event: event._id})
-      ]);
+    console.log("i dont have log");
+    if(event.numParticipation >= event.numLimit) {
+      console.log("the event is full");
+      return res.json(event);
     }
     else {
-      console.log("i can't increase participation num");
+    event.numParticipation++;
+    await Promise.all([
+      event.save(),
+      participationLog = ParticipationLog.create({author: req.user._id, event: event._id})
+    ]);
     }
+    console.log("create log");
+    console.log(participationLog);
+    return res.json(event);
   }
   else {
-    console.log("flash");
-    req.flash('danger', 'already enrolled');
+    console.log("i have log");
     console.log("log already exist");
+    return res.json(event);
   }
-  return res.json(event);
 }));
 
 router.post('/events/:id/favorite', catchErrors(async (req, res, next) => {
@@ -62,6 +77,8 @@ router.post('/events/:id/favorite', catchErrors(async (req, res, next) => {
   }
   return res.json(favoriteLog);
 }));
+
+
 
 router.use((err, req, res, next) => {
     res.status(err.status || 500);

@@ -1,0 +1,11 @@
+.review.card(id= answer.id)
+  .card-body
+    .content= answer.content
+  .row.card-body
+    .col-sm
+    .col-sm.text-right
+      .author
+        | answered on #{moment(review.createdAt).format('YYYY-MM-DD')}
+        if answer.author
+          | 
+          | by #[a(href=`/users/${answer.author.id}`)= answer.author.name]

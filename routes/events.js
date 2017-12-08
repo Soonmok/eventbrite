@@ -6,6 +6,7 @@ const Poll = require('../models/poll');
 const ParticipationLog = require('../models/participationLog');
 const FavoriteLog = require('../models/favoriteLog');
 const catchErrors = require('../lib/async-error');
+const Answer = require('../models/answer');
 
 module.exports = io => {
   const router = express.Router();
@@ -108,13 +109,11 @@ module.exports = io => {
   router.get('/:id', catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id).populate('author');
     const reviews = await Review.find({events: events.id}).populate('author');
-    const logs = await ParticipationLog.find({event: events.id}).populate('author'); 
+    const logs = await ParticipationLog.find({event: events.id}).populate('author');
+    const answers = await Answer.find({reviews: reviews.id}).populate('author'); 
     events.numReads++;    // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
-    console.log("logs");
-    console.log(logs);
-
     await events.save();
-    res.render('events/show', {events: events, reviews: reviews, logs: logs});
+    res.render('events/show', {events: events, reviews: reviews, logs: logs, answers: answers});
   }));
 
   
@@ -155,6 +154,8 @@ module.exports = io => {
       eventContent: req.body.content,
       ticketPrice: req.body.ticketPrice,
       numLimit: req.body.numLimit,
+      group: req.body.group,
+      describeGroup: req.body.describeGroup
     });
     await events.save();
     req.flash('success', 'Successfully posted');
@@ -164,6 +165,7 @@ module.exports = io => {
   router.post('/:id/reviews', needAuth, catchErrors(async (req, res, next) => {
     const user = req.user;
     const events = await Events.findById(req.params.id);
+    const reviews = await Review.find({events: events.id}).populate('author');
 
     if (!events) {
       req.flash('danger', 'Not exist events');
@@ -186,7 +188,83 @@ module.exports = io => {
     res.redirect(`/events/${req.params.id}`);
   }));
 
+  // Poll
+  router.get('/:id/poll', needAuth, catchErrors(async (req, res, next) => {
+    const events = await Events.findById(req.params.id).populate('author');
+    const logs = await ParticipationLog.findOne({author: req.user._id, event: events});
+    console.log("im in the fucking get poll");
+    console.log(logs);
+    if(events.numParticipation > events.numLimit) {
+      console.log("the event is full");
+      req.flash('danger', 'is full');
+      res.redirect(`/events/${req.params.id}`);
+    }
+    if (logs) {
+      if (logs.poll) {
+        req.flash('danger', 'already enrolled it');
+        return res.redirect(`/events/${req.params.id}`);
+      }
+      res.render('events/poll', {events: events});
+    }
+    else { 
+      req.flash('danger', 'please participate first');
+      return res.redirect(`/events/${req.params.id}`);
+      }
+  }));
+  
+  // Poll
+  router.post('/:id/poll', needAuth, catchErrors(async (req, res, next) => {
+    const user = req.user;
+    const event = await Events.findById(req.params.id).populate('author');
+    const logs = await ParticipationLog.findOne({author: req.user._id, event: event});
+    console.log("logs");
+    console.log(logs);
+    if (logs && logs.poll) {
+      res.redirect(`/events/${req.params.id}`);
+    }
+    var poll = new Poll({
+      author: user._id,
+      group: req.body.group,
+      reason: req.body.reason
+    });
+    await poll.save();
+    logs.poll = poll;
+    await logs.save();
+    console.log("poll");
+    console.log(poll);
+    req.flash('success', 'Successfully polled');
+    res.redirect(`/events/${req.params.id}`);
+  }));
+  
+  // answers
+  router.post('/:id/answers', needAuth, catchErrors(async (req, res, next) => {
+    const user = req.user;
+    const review = await Review.findById(req.params.id);
+    const events = review.events;
+    console.log("im in answer post");
+    console.log(events);
+    if (!review) {
+      req.flash('danger', 'Not exist review');
+      return res.redirect('back');
+    }
 
-
+    var answer = new Answer({
+      author: user._id,
+      review: review._id,
+      content: req.body.answer
+    });
+    await answer.save();
+    await review.save();
+    console.log("im in answer post2");
+    console.log(answer);
+    console.log("events id !!!!!"); 
+    console.log(events.id);
+    const url = `/events/${events._id}#${answer._id}`;
+    io.to(review.author.toString())
+      .emit('answered', {url: url, review: review});
+    console.log('SOCKET EMIT', review.author.toString(), 'answered', {url: url, review: review})
+    req.flash('success', 'Successfully answered');
+    res.redirect(`/events/${events}`);
+  }));
   return router;
 }

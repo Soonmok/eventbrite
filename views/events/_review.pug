@@ -13,17 +13,19 @@
         if review.author
           | 
           | by #[a(href=`/users/${review.author.id}`)= review.author.name]
+  .row.card-body
+    .col-sm
+    .col-sm.text-right
+      if events.author && currentUser && events.author.id == currentUser.id
+.answers.show
+  each answer in answers
+    if review.id == answer.review
+      include _answer
 
 
-  //if events.author && events.author.id == currentUser.id
-    script.
-      function showHiddens() {
-        var $hiddenForm = $(document);
-        $hiddenForm.show();
-      }
-    #hidden.form-group
-      label(for='review') Your review
-      textarea.form-control(name="content", rows="5")
-    #hidden.button.btn.btn-primary(type="submit") Post
-    .button.btn.btn-primary(onclick="showHiddens();") Post Your Answer
+  form(action=`/events/${review.id}/answers`, method='POST')
+    .form-group
+      label(for='answerS') Your answer
+      textarea.form-control(name="answer", rows="5")
+    button.btn.btn-primary(type="submit", href=`/events/${review.id}/answers?_method=post`) Post Your Answer
 

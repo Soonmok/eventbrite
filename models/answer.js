@@ -4,15 +4,14 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' },
-  events: { type: Schema.Types.ObjectId, ref: 'Event' },
+  review: { type: Schema.Types.ObjectId, ref: 'Review' },
   content: {type: String, trim: true, required: true},
-  createdAt: {type: Date, default: Date.now},
-  answer: {type: String, trim: true }
+  createdAt: {type: Date, default: Date.now}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
 });
 schema.plugin(mongoosePaginate);
-var Review = mongoose.model('Review', schema);
+var Answer = mongoose.model('Answer', schema);
 
-module.exports = Review;
+module.exports = Answer;

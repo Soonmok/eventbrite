@@ -4,6 +4,16 @@ const catchErrors = require('../../lib/async-error');
 
 const router = express.Router();
 
+function needAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    req.flash('danger', 'Please signin first.');
+    res.redirect('/signin');
+  }
+}
+
+
 // Index
 router.get('/', catchErrors(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
@@ -33,7 +43,7 @@ router.post('', catchErrors(async (req, res, next) => {
     tags: req.body.tags.map(e => e.trim()),
   });
   await event.save();
-  res.json(event)
+  res.json(event);
 }));
 
 // Put
@@ -61,9 +71,11 @@ router.delete('/:id', catchErrors(async (req, res, next) => {
   if (event.author && event.author._id != req.user._id) {
     return next({status: 403, msg: 'Cannot update'});
   }
-  await Event.findOneAndRemove({_id: req.params.id});
+  await Event.findOneAndRemove({_id: s});
   res.json({msg: 'deleted'});
 }));
+
+
 
 
 module.exports = router;

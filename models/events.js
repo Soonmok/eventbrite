@@ -10,14 +10,16 @@ var schema = new Schema({
   startTime: {type: String, trim: true, required: true},
   finishTime: {type: String, trim: true, required: true},
   free: {type: String, trim: true, required: true},
-  eventType: {type: String, trim: true, required: true},
-  eventTopic: {type: String, trim: true, required: true},
+  eventType: {type: String, trim: true},
+  eventTopic: {type: String, trim: true},
   numParticipation: {type: Number, default: 0},
   numLimit: {type: Number, default: 10},
   numReads: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
   ticketPrice: {type: Number, default: 0},
   numReviews: {type: Number, default: 0},
+  group: {type: String, trim: true, required: true},
+  describeGroup: {type: String, trim: true, required: true},
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

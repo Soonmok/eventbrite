@@ -17,12 +17,22 @@ block content
                     .hAddr
                         span.title 지도중심기준 행정동 주소정보
                         span#centerAddr
-
+        
                     script.
                         mapsInit();
                        
+            
+            .form-group
+                label(for="group") GROUP
+                input.form-control(type="String", name="group", placeholder="Give it a short distinct name")
+
+            .form-group
+                label(for="describeGroup") DESCRIBE GROUP
+                textarea.form-control(type="String", name="describeGroup", rows='10', placeholder="Give it a short distinct name")
+
             .form-group
                 .form-group
+                    label(for="content") DESCRIBE YOUR EVENT
                     textarea#editor1(name='content', rows='10', cols='80')
                         | describe your event
                     script.
@@ -108,6 +118,5 @@ block content
                     h1.main-title FINISH
                 input.btn.btn-info(type='submit', value='Submit')
     
-
 
 

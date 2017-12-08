@@ -1,5 +1,5 @@
 |내용 :
-.content= events.content 
+.content!= events.content 
 | 장소 :
 #location-1= events.location
 | 시작시간 :
@@ -14,6 +14,11 @@
 .free=events.free
 | 티켓 가격 :
 .price=events.ticketPrice
+| 그룹 :
+.price=events.group
+| 그룹 설명 :
+.price=events.describeGroup
+
 
 .row
   .col-sm
@@ -66,7 +71,7 @@
 
   .col-sm
     .author
-      | asked on #{moment(events.createdAt).format('YYYY-MM-DD')}
+      | post on #{moment(events.createdAt).format('YYYY-MM-DD')}
 
       if events.author
         | 

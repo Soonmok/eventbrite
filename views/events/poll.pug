@@ -3,13 +3,15 @@ extends ../layout
 block content
   .container
     h2 poll
-        h1.main-title Event Detail
-        form(action="/events", method="POST")
+        h1.main-title=events.title
+        form(action=`/events/${events.id}/poll`, method="POST")
 
             .form-group
-                label(for="title") ORGANISATION
-                input.form-control(type="String", name="title", placeholder="Give it a short distinct name")
+                label(for="group") ORGANISATION
+                input.form-control(type="String", name="group", placeholder="Give it a short distinct name")
 
             .form-group
-                label(for="content") REASON
-                textarea.form-control(name="content", rows="5", placeholder="Describe your event")
+                label(for="reason") REASON
+                textarea.form-control(name="reason", rows="5", placeholder="Describe your event")
+
+            input.btn.btn-info(type='submit', value='Submit')

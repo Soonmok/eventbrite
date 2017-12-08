@@ -9,12 +9,14 @@ block content
 
       .buttons
         if currentUser
-          button.btn.btn-primary.event-participation-btn(data-id=events.id) 
+          a.btn.btn-outline-secondary.event-participation-btn(data-id=events.id) 
             span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
             span.btn #[i.fa.fa-thumbs-up] participation
+             a.btn.btn-outline-secondary(href=`/events/${events.id}/poll`) poll 
+          
+            | 
           
           button.btn.btn-primary.event-favorite-btn(data-id=events.id) 
-            span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
             span.btn #[i.fa.fa-thumbs-up] favorite
             
           if events.author && events.author.id == currentUser.id
@@ -31,16 +33,13 @@ block content
             include _review
             
 
-      if currentUser
-        if events.author != currentUser
+
+      if currentUser && events.author
+        if events.author.id != currentUser.id
           form(action=`/events/${events.id}/reviews`, method='POST')
             .form-group
               label(for='review') Your review
-              textarea.form-control(name="content", rows="5")
-                p This is some sample content.
-
-
-
+              textarea.form-control(name="content", rows="3")
             button.btn.btn-primary(type="submit") Post Your review
         
 

@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 var schema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   event: { type: Schema.Types.ObjectId, ref: 'Event' },
-  createdAt: {type: Date, default: Date.now}
+  createdAt: {type: Date, default: Date.now},
+  poll: {type: Schema.Types.ObjectId, ref: 'Poll'}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
