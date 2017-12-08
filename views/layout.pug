@@ -13,12 +13,9 @@ html(lang='en')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src='//cdn.ckeditor.com/4.7.3/standard/ckeditor.js')
 
-
-
-
-    
     //- Notify 라이브러리 import: http://bootstrap-notify.remabledesigns.com/ 
     script(src='/javascripts/bootstrap-notify.js')
+
     //- Daum 지도 라이브러리 
     script(type='text/javascript', src='//dapi.kakao.com/v2/maps/sdk.js?appkey=91270a5f0e9a136524a3c738a5cf6812&libraries=services,clusterer,drawing')
     //- this application
@@ -26,6 +23,7 @@ html(lang='en')
     script(src='/javascripts/application.js')
     script(src='/javascripts/hiddenForm.js')
     script(src='/javascripts/maps.js')
+
     //- socket io
     script(src='/socket.io/socket.io.js') 
     title Document
@@ -56,10 +54,21 @@ html(lang='en')
 
       socket.on('reviewed', function(data) {
         // reviewed를 받으면 링크를 notifier로 출력한다.
-        var title = $('<div></div>').text(data.question.title).html();
+        var title = $('<div></div>').text(data.events.title).html();
         $.notify({
           icon: 'fa fa-bell',
-          title: 'You hace a new review.',
+          title: 'You have a new review.',
+          url: data.url,
+          message: title
+        });
+      });
+
+      socket.on('answered', function(data) {
+        // answered 받으면 링크를 notifier로 출력한다.
+        var title = $('<div></div>').text(data.review.content).html();
+        $.notify({
+          icon: 'fa fa-bell',
+          title: 'You have a new answer.',
           url: data.url,
           message: title
         });

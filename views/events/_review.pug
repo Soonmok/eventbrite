@@ -22,7 +22,7 @@
     if review.id == answer.review
       include _answer
 
-
+if events.author && currentUser && events.author.id == currentUser.id
   form(action=`/events/${review.id}/answers`, method='POST')
     .form-group
       label(for='answerS') Your answer

@@ -259,7 +259,9 @@ module.exports = io => {
     console.log(answer);
     console.log("events id !!!!!"); 
     console.log(events.id);
-    const url = `/events/${events._id}#${answer._id}`;
+    console.log("reviews author!!!");
+    console.log(review.author);
+    const url = `/events/${events.id}#${review._id}`;
     io.to(review.author.toString())
       .emit('answered', {url: url, review: review});
     console.log('SOCKET EMIT', review.author.toString(), 'answered', {url: url, review: review})
