@@ -247,7 +247,9 @@ footer > div {
   .show .review .content {
     margin-bottom: 0.5em;
     color: #888; }
-
+#hidden {
+  display: none;
+}
 .event-participation-btn, .review-participation-btn {
   cursor: pointer; }
   .event-participation-btn .for-loading, .review-participation-btn .for-loading {
@@ -262,5 +264,6 @@ footer > div {
   .event-participation-btn.disabled, .review-participation-btn.disabled {
     color: #bbb;
     cursor: default; }
+
 
 /*# sourceMappingURL=style.css.map */
