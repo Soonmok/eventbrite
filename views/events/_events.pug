@@ -22,16 +22,18 @@
 .limit=events.numLimit
 
 
+
 .row
   .col-sm
     .numbers.
         #[span.number.num-participation= events.numParticipation] participations,
         #[span.number.num-reads= events.numReads] reads
+
+    a="참가인원들"
     .logs
           each log in logs
             .log
               a.title= log.author.name
-    a="participants"
   .col-sm
     .maps
       #map(style='width:500px;height:400px;')

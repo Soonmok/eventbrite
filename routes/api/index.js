@@ -42,11 +42,11 @@ router.post('/events/:id/participation', catchErrors(async (req, res, next) => {
       return res.json(event);
     }
     else {
-    event.numParticipation++;
-    await Promise.all([
-      event.save(),
-      participationLog = ParticipationLog.create({author: req.user._id, event: event._id})
-    ]);
+      event.numParticipation++;
+      await Promise.all([
+        event.save(),
+        participationLog = ParticipationLog.create({author: req.user._id, event: event._id})
+      ]);
     }
     console.log("create log");
     console.log(participationLog);
