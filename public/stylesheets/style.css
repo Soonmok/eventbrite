@@ -27,7 +27,8 @@
   background: linear-gradient(rgba(255, 255, 255, 0.9) 0, white 25%);
   margin-top: -140px;
   position: relative;
-  height: 250px; }
+  height: 250px;
+  display: inline-block; }
 
 .text-card-heading {
   margin-top: 20px;
@@ -262,7 +263,9 @@ footer > div {
   .event-participation-btn.disabled, .review-participation-btn.disabled {
     color: #bbb;
     cursor: default; }
-
+.eventtitle {
+  font-size: 3em;
+}
 .hidden {
   display: none; }
 

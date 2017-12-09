@@ -83,16 +83,11 @@ module.exports = io => {
     res.render('events/recommendation', {events: events, page: events.page, pages: events.pages});
   }));
 
-  // reset-password
-  router.get('/reset-password', catchErrors(async (req, res, next) => {
-    res.render('events/reset-password');
-  }));
-
   router.get('/new', needAuth, catchErrors(async (req, res, next) => {
-  
-    res.render('events/new', {events: {}});
-  }));
-
+    
+      res.render('events/new', {events: {}});
+    }));
+    
   router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id);
     res.render('events/edit', {events: events});
@@ -168,9 +163,9 @@ module.exports = io => {
     if (req.file) {
       const dest = path.join(__dirname, '../public/images/uploads/');  // 옮길 디렉토리
       console.log("File ->", req.file); // multer의 output이 어떤 형태인지 보자.
-      const filename = question.id + "/" + req.file.originalname;
+      const filename = events.id + "/" + req.file.originalname;
       await fs.move(req.file.path, dest + filename);
-      question.img = "/images/uploads/" + filename;
+      events.img = "/images/uploads/" + filename;
     }
     await events.save();
     req.flash('success', 'Successfully posted');

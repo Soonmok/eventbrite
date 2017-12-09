@@ -5,8 +5,8 @@ block content
     h1.main-title= events.title
 
     .event.show
-      //- if question.img
-      //-   img.img-fluid(src= question.img)
+      if events.img
+        img.img-fluid(src= events.img)
       include _events
 
       .buttons
