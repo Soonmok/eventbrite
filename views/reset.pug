@@ -1,0 +1,12 @@
+extends ./layout
+
+block content
+  .container
+    .clearfix
+      a=user
+      form.form-signin(action=`/${user}/reset`, method='POST')
+        label(for='password') Enter password
+        input(
+          type='password', id='password', name='password', class='form-control', 
+          placeholder='password', required, autofocus
+        )
