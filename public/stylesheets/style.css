@@ -263,9 +263,7 @@ footer > div {
   .event-participation-btn.disabled, .review-participation-btn.disabled {
     color: #bbb;
     cursor: default; }
-.eventtitle {
-  font-size: 3em;
-}
+
 .hidden {
   display: none; }
 

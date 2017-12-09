@@ -19,8 +19,6 @@ block content
 
     hr
     p
-      a.btn.btn-outline-secondary(href='/users/') List
-      | 
       if currentUser.isRoot || currentUser.name == user.name
         a.btn.btn-outline-primary(href=`/users/${user._id}/edit`) Edit
         |

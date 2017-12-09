@@ -87,7 +87,7 @@ module.exports = io => {
     
       res.render('events/new', {events: {}});
     }));
-    
+
   router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id);
     res.render('events/edit', {events: events});
@@ -273,7 +273,7 @@ module.exports = io => {
     console.log(events.id);
     console.log("reviews author!!!");
     console.log(review.author);
-    const url = `/events/${events.id}#${review._id}`;
+    const url = `/events/${events}#${review._id}`;
     io.to(review.author.toString())
       .emit('answered', {url: url, review: review});
     console.log('SOCKET EMIT', review.author.toString(), 'answered', {url: url, review: review})
