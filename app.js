@@ -65,7 +65,7 @@ module.exports = (app, io) => {
   }));
 
   const sessionStore = new session.MemoryStore();
-  const sessionId = 'mjoverflow.sid';
+  const sessionId = 'moksEventBrite.sid';
   const sessionSecret =  'TODO: change this secret string for your own'
   // session을 사용할 수 있도록.
   app.use(session({

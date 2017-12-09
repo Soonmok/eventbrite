@@ -3,7 +3,7 @@ block content
     .container
         h2 Create Event
         h1.main-title Event Detail
-        form(action="/events", method="POST")
+        form(action="/events", method="POST" enctype="multipart/form-data")
 
             .form-group
                 label(for="title") EVENT TITLE
@@ -29,7 +29,9 @@ block content
             .form-group
                 label(for="describeGroup") DESCRIBE GROUP
                 textarea.form-control(type="String", name="describeGroup", rows='10', placeholder="Give it a short distinct name")
-
+            .form-froup
+                label(for="img") Image
+                input.form-control(type="file", name="img") 
             .form-group
                 .form-group
                     label(for="content") DESCRIBE YOUR EVENT

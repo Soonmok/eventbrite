@@ -7,6 +7,9 @@ const ParticipationLog = require('../models/participationLog');
 const FavoriteLog = require('../models/favoriteLog');
 const catchErrors = require('../lib/async-error');
 const Answer = require('../models/answer');
+const multer = require('multer');
+const fs = require('fs-extra');
+const path = require('path');
 
 module.exports = io => {
   const router = express.Router();
@@ -30,8 +33,7 @@ module.exports = io => {
     var query = {};
     const term = req.query.term;
     const setting = req.query.setting;
-    const recommendation = req.query.recommendation;
-    const recommendationSetting = req.query.recommendationSetting;
+
     if (term) {
       switch (setting) {
         case 'Keyword':
@@ -60,34 +62,6 @@ module.exports = io => {
           break;
       }
     }
-    if (recommendation) {
-      switch (recommendationSetting) {
-        case 'Review':
-          console.log("im in Review");
-          query = {$or: [
-            {title: {'$regex': recommendation, '$options': 'i'}},
-            {content: {'$regex': recommendation, '$options': 'i'}}
-          ]};
-          break;
-
-        case 'Location':
-          console.log("im in Location");
-          query = {$or: [
-            {location: {'$regex': recommendation, '$options': 'i'}}
-          ]};
-          break;
-
-        case 'participants':
-          console.log("im in Type");
-          query = {$or: [
-            {eventType: {'$regex': recommendation, '$options': 'i'}}
-          ]};
-          break;
-      
-        default:
-          break;
-      }
-    }
     const events = await Events.paginate(query, {
       sort: {createdAt: -1}, 
       populate: 'author', 
@@ -96,10 +70,28 @@ module.exports = io => {
     res.render('events/index', {events: events, term: term, query: req.query});
   }));
 
-  router.get('/new', needAuth, (req, res, next) => {
+  // recommendation 
+  router.get('/recommendation', needAuth, catchErrors(async (req, res, next) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+  
+    const events = await Events.paginate({}, {
+      sort: {createdAt: -1}, 
+      populate: 'author',
+      page: page, limit: limit
+    });  
+    res.render('events/recommendation', {events: events, page: events.page, pages: events.pages});
+  }));
+
+  // reset-password
+  router.get('/reset-password', catchErrors(async (req, res, next) => {
+    res.render('events/reset-password');
+  }));
+
+  router.get('/new', needAuth, catchErrors(async (req, res, next) => {
   
     res.render('events/new', {events: {}});
-  });
+  }));
 
   router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
     const events = await Events.findById(req.params.id);
@@ -139,7 +131,23 @@ module.exports = io => {
     res.redirect('/');
   }));
 
-  router.post('/', needAuth, catchErrors(async (req, res, next) => {
+  const mimetypes = {
+    "image/jpeg": "jpg",
+    "image/gif": "gif",
+    "image/png": "png"
+  };
+  const upload = multer({
+    dest: 'tmp', 
+    fileFilter: (req, file, cb) => {
+      var ext = mimetypes[file.mimetype];
+      if (!ext) {
+        return cb(new Error('Only image files are allowed!'), false);
+      }
+      cb(null, true);
+    }
+  }); // tmp라는 폴더를 미리 만들고 해야 함.
+
+  router.post('/', needAuth, upload.single('img'), catchErrors(async (req, res, next) => {
     const user = req.user;
     var events = new Events({
       title: req.body.title,
@@ -157,10 +165,19 @@ module.exports = io => {
       group: req.body.group,
       describeGroup: req.body.describeGroup
     });
+    if (req.file) {
+      const dest = path.join(__dirname, '../public/images/uploads/');  // 옮길 디렉토리
+      console.log("File ->", req.file); // multer의 output이 어떤 형태인지 보자.
+      const filename = question.id + "/" + req.file.originalname;
+      await fs.move(req.file.path, dest + filename);
+      question.img = "/images/uploads/" + filename;
+    }
     await events.save();
     req.flash('success', 'Successfully posted');
     res.redirect('/events');
   }));
+
+   
 
   router.post('/:id/reviews', needAuth, catchErrors(async (req, res, next) => {
     const user = req.user;
@@ -268,5 +285,8 @@ module.exports = io => {
     req.flash('success', 'Successfully answered');
     res.redirect(`/events/${events}`);
   }));
+
+ 
+
   return router;
 }

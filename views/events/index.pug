@@ -14,14 +14,7 @@ block content
       input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
     
     form.form-inline.search-input-group(action='/events', method='GET')
-      label(for="recommendation") recommendation
-      i.fa.fa-search
-      select.custom-select(type=String, name='recommendationSetting', aria-label='recommendationSetting', value=recommendationSetting)
-        option(selected='Review') Search Setting
-        option(value='Review') Review
-        option(value='Location') Location
-        option(value='Participants') Participants
-      input.form-control.mr-sm-2(type='text', name='recommendation', placeholder='Search', aria-label='Search', value=recommendation)
+
 
     h1.main-title 
       | Events
@@ -41,3 +34,4 @@ block content
 
     hr
     a.btn.btn-primary(href='/events/new') CREATE EVENT
+    a.btn.btn-primary(href='/events/recommendation') Recommendation

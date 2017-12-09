@@ -1,0 +1,16 @@
+extends ../layout
+include ../includes/_paginate
+block content
+    .container
+        h1.main-title 
+            | Recommendations  
+            .events
+                each event in events.docs
+                    .event(id=event.title)
+                        a(id=event.title).title(href=`/events/${event.id}`)= event.title
+                        script.
+                            var numParticipation = '#{event.numParticipation}';
+                            var numReview = '#{event.numReviews}';
+                            var title = '#{event.title}';
+                            scoreCalculate(numParticipation, numReview, title);
+                +paginate(events, '/events', query)

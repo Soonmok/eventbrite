@@ -20,6 +20,8 @@ var schema = new Schema({
   numReviews: {type: Number, default: 0},
   group: {type: String, trim: true, required: true},
   describeGroup: {type: String, trim: true, required: true},
+  img: {type: String},
+  score: {type: Number, default: 0},
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

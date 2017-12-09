@@ -1,4 +1,14 @@
+const catchErrors = require('../lib/async-error');
+
 module.exports = (app, passport) => {
+  app.post('/forget-password', catchErrors(async (req, res, next) => {
+    var email = req.body.email;
+  }));
+
+  app.post('/reset', catchErrors(async (req, res, next) => {
+
+  }));
+
   app.get('/signin', (req, res, next) => {
     res.render('signin');
   });
@@ -7,6 +17,14 @@ module.exports = (app, passport) => {
     successRedirect : '/', // redirect to the secure profile section
     failureRedirect : '/signin', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
+  }));
+
+  app.get('/forget-password', (req, res, next) => {
+    res.render('forget-password');
+  });
+
+  app.post('/reset-password', catchErrors(async (req, res, next) => {
+    res.render('/');
   }));
 
   app.get('/auth/facebook',
